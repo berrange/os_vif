@@ -19,18 +19,6 @@ import six
 class PluginBase(object):
     """Base class for all VIF plugins."""
 
-    VIF_TYPE = 'unknown'
-    """
-    Should be overridden with a string representing the VIF type the plugin
-    supports.
-    """
-
-    SUPPORTED_VNIC_TYPES = (None, )
-    """
-    Should be overridden with one or more constants for VNIC types in
-    `os_vif.vnic_types`.
-    """
-
     def __init__(self, **config):
         """
         Sets up the plugin using supplied kwargs representing configuration
@@ -43,7 +31,7 @@ class PluginBase(object):
         """
         Given a model of a VIF, perform operations to plug the VIF properly.
 
-        :param instance: `nova.objects.Instance` object.
+        :param instance: `os_vif.objects.InstanceInfo` object.
         :param vif: `os_vif.objects.VIF` object.
         :raises `processutils.ProcessExecutionError`. Plugins implementing
                 this method should let `processutils.ProcessExecutionError`

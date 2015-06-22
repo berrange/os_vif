@@ -56,7 +56,7 @@ def plug(vif, instance):
     Given a model of a VIF, perform operations to plug the VIF properly.
 
     :param vif: `os_vif.objects.VIF` object.
-    :param instance: `nova.objects.Instance` object.
+    :param instance: `os_vif.objects.InstanceInfo` object.
     :raises `exception.LibraryNotInitialized` if the user of the library
             did not call os_vif.initialize(**config) before trying to
             plug a VIF.
@@ -68,11 +68,11 @@ def plug(vif, instance):
     if _EXT_MANAGER is None:
         raise os_vif.exception.LibraryNotInitialized()
 
-    vif_type = vif.type
+    vif_plugin = vif.plugin
     try:
-        plugin = _EXT_MANAGER[vif_type]
+        plugin = _EXT_MANAGER[vif_plugin]
     except KeyError:
-        raise os_vif.exception.NoMatchingPlugin(vif_type=vif_type)
+        raise os_vif.exception.NoMatchingPlugin(vif_plugin=vif_plugin)
 
     try:
         LOG.debug("Plugging vif %s", vif)
@@ -99,11 +99,11 @@ def unplug(vif):
     if _EXT_MANAGER is None:
         raise os_vif.exception.LibraryNotInitialized()
 
-    vif_type = vif.type
+    vif_plugin = vif.plugin
     try:
-        plugin = _EXT_MANAGER[vif_type]
+        plugin = _EXT_MANAGER[vif_plugin]
     except KeyError:
-        raise os_vif.exception.NoMatchingPlugin(vif_type=vif_type)
+        raise os_vif.exception.NoMatchingPlugin(vif_plugin=vif_plugin)
 
     try:
         LOG.debug("Unplugging vif %s", vif)
