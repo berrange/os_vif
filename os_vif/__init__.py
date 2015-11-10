@@ -25,10 +25,10 @@ _EXT_MANAGER = None
 LOG = logging.getLogger('os_vif')
 
 
-def initialize(reset=False, **config):
+def initialize(reset=False, config):
     """
-    Loads all os_vif plugins and initializes them with a dictionary of
-    configuration options.
+    Loads all os_vif plugins and initializes them with the
+    provided os_vif.objects.PluginConfig instance
     """
     global _EXT_MANAGER
     if reset or (_EXT_MANAGER is not None):

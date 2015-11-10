@@ -19,8 +19,11 @@ library, first call the `os_vif.initialize()` function, supplying a set of
 keyword arguments for configuration options::
 
     import os_vif
+    from os_vif import objects as vif_objects
 
-    os_vif.initialize(libvirt_virt_type='kvm')
+    cfg = vif_objects.PluginConfig(virt_driver="libvirt",
+                                   hypervisor_type="kvm")
+    os_vif.initialize(cfg)
 
 Once the `os_vif` library is initialized, there are only two other library
 functions: `os_vif.plug()` and `os_vif.unplug()`. The `os_vif.plug()` function

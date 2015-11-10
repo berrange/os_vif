@@ -10,9 +10,19 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from oslo_versionedobjects import base
+from oslo_versionedobjects import fields
 
-def register_all():
-    __import__('os_vif.objects.network')
-    __import__('os_vif.objects.subnet')
-    __import__('os_vif.objects.vif')
-    __import__('os_vif.objects.plugin')
+class PluginConfig(base.VersionedObject):
+    """Represents configuration info passed to a plugin"""
+    # Version 1.0: Initial version
+    VERSION = '1.0'
+
+    fields = {
+        # Name of the virtualization driver
+        'virt_driver': fields.StringField(),
+
+        # Name of the hypervisor type (when virtualization
+        # driver can support multiple hypervisors)
+        'hypervisor_type': fields.StringField()
+    }

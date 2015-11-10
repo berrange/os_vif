@@ -19,10 +19,9 @@ import six
 class PluginBase(object):
     """Base class for all VIF plugins."""
 
-    def __init__(self, **config):
+    def __init__(self, config):
         """
-        Sets up the plugin using supplied kwargs representing configuration
-        options.
+        Sets up the plugin using os_vif.objects.PluginConfig instance
         """
         self.config = config
 
