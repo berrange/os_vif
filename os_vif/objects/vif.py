@@ -14,6 +14,7 @@ from oslo_versionedobjects import base
 from oslo_versionedobjects import fields
 
 from os_vif import vnic_types
+from os_vif.objects import osv_fields
 
 # Constants for dictionary keys in the 'vif_details' field in the VIF
 # class
@@ -47,8 +48,7 @@ class VIF(base.VersionedObject):
     fields = {
         'id': fields.UUIDField(),
         'ovs_interfaceid': fields.StringField(),
-        # MAC address
-        'address': fields.StringField(nullable=True),
+        'address': osv_fields.MACAddressField(nullable=True),
         'network': fields.ObjectField('Network', nullable=True),
         'type': fields.StringField(),
         'details': fields.DictOfStringsField(nullable=True),
