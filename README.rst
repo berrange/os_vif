@@ -41,6 +41,11 @@ underlying network::
 
     instance_uuid = 'd7a730ca-3c28-49c3-8f26-4662b909fe8a'
     instance = nova_objects.Instance.get_by_uuid(instance_uuid)
+    instance_cfg = vif_objects.InstanceConfig(
+        name=instance.name,
+	display_name=instance.display_name,
+	uuid=instance.uuid,
+	project_id=instance.project_id)
 
     subnet = vif_objects.Subnet(cidr='192.168.1.0/24')
     subnets = vif_objects.SubnetList([subnet])
@@ -61,7 +66,7 @@ underlying network::
     # Now do the actual plug operations to connect the VIF to
     # the backing network interface.
     try:
-        os_vif.plug(vif, instance)
+        os_vif.plug(vif, instance_cfg)
     except vif_exc.PlugException as err:
         # Handle the failure...
 

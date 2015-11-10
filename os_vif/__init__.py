@@ -43,7 +43,7 @@ def plug(vif, instance):
     Given a model of a VIF, perform operations to plug the VIF properly.
 
     :param vif: `os_vif.objects.VIF` object.
-    :param instance: `nova.objects.Instance` object.
+    :param instance: `os_vif.objects.InstanceConfig` object.
     :raises `exception.LibraryNotInitialized` if the user of the library
             did not call os_vif.initialize(**config) before trying to
             plug a VIF.

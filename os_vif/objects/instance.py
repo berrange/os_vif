@@ -10,10 +10,24 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from oslo_versionedobjects import base
+from oslo_versionedobjects import fields
 
-def register_all():
-    __import__('os_vif.objects.network')
-    __import__('os_vif.objects.subnet')
-    __import__('os_vif.objects.vif')
-    __import__('os_vif.objects.plugin')
-    __import__('os_vif.objects.instance')
+class InstanceConfig(base.VersionedObject):
+    """Represents instance info passed to a plugin"""
+    # Version 1.0: Initial version
+    VERSION = '1.0'
+
+    fields = {
+        # Name of the instance
+        'name': fields.StringField()
+
+        # UUID of the instance
+        'uuid': fields.UUIDField()
+
+        # Human friendly name of the instance
+        'display_name': fields.StringField()
+
+        # Project id
+        'project_id': fields.StringField()
+    }
