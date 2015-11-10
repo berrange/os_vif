@@ -15,6 +15,15 @@ import abc
 import six
 
 
+class PluginVIFSupport(object):
+
+    def __init__(self, class_name, min_version, max_version):
+
+        self.class_name = class_name
+        self.min_version = min_version
+        self.max_version = max_version
+
+
 @six.add_metaclass(abc.ABCMeta)
 class PluginBase(object):
     """Base class for all VIF plugins."""
@@ -51,3 +60,12 @@ class PluginBase(object):
                 standardized os_vif library exception.
         """
         raise NotImplementedError('do_unplug')
+
+    @abs.abstractmethod
+    def get_supported_vifs(self):
+        """
+        Get a list of supported VIF object tyoes
+
+        :returns: list of os_vif.plugin.PluginVIFSupport instances
+        """
+        raise NotImplementedError("get_supported_vifs")
