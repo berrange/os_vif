@@ -15,11 +15,8 @@ from oslo_log import log as logging
 from stevedore import extension
 
 import os_vif.exception
-import os_vif.iptables
 import os_vif.i18n
 import os_vif.objects
-import os_vif.linux_net
-import os_vif.processutils
 
 _LE = os_vif.i18n._LE
 _LI = os_vif.i18n._LI
@@ -38,18 +35,6 @@ def initialize(reset=False, **config):
         _EXT_MANAGER = extension.ExtensionManager(namespace='os_vif',
                                                   invoke_on_load=True,
                                                   invoke_args=config)
-
-        ipm_options = {
-            'use_ipv6': config.get('use_ipv6', False),
-            'iptables_top_regex': config.get('iptables_top_regex', ''),
-            'iptables_bottom_regex': config.get('iptables_bottom_regex', ''),
-            'iptables_drop_action': config.get('iptables_drop_action', 'DROP'),
-            'forward_bridge_interface':
-                config.get('forward_bridge_interface', ['all']),
-        }
-        ipm = os_vif.iptables.IptablesManager(**ipm_options)
-        os_vif.linux_net.iptables_manager = ipm
-        os_vif.processutils.configure(**config)
         os_vif.objects.register_all()
 
 

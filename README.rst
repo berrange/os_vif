@@ -20,14 +20,7 @@ keyword arguments for configuration options::
 
     import os_vif
 
-    os_vif.initialize(libvirt_virt_type='kvm',
-                      network_device_mtu=1500,
-                      vlan_interface='eth1',
-                      use_ipv6=False,
-                      iptables_top_regex='',
-                      iptables_bottom_regex='',
-                      iptables_drop_action='DROP',
-                      forward_bridge_interface=['all'])
+    os_vif.initialize(libvirt_virt_type='kvm')
 
 Once the `os_vif` library is initialized, there are only two other library
 functions: `os_vif.plug()` and `os_vif.unplug()`. The `os_vif.plug()` function
