@@ -50,7 +50,7 @@ class VIF(base.VersionedObject):
         'ovs_interfaceid': fields.StringField(),
         'address': osv_fields.MACAddressField(nullable=True),
         'network': fields.ObjectField('Network', nullable=True),
-        'type': fields.StringField(),
+        'plugin': fields.StringField(),
         'details': fields.DictOfStringsField(nullable=True),
         'profile': fields.DictOfStringsField(nullable=True),
         'devname': fields.StringField(nullable=True),
@@ -59,7 +59,7 @@ class VIF(base.VersionedObject):
         'preserve_on_delete': fields.BooleanField(),
     }
 
-    def __init__(self, id=None, address=None, network=None, type=None,
+    def __init__(self, id=None, address=None, network=None, plugin=None,
                  details=None, devname=None, ovs_interfaceid=None,
                  qbh_params=None, qbg_params=None, active=False,
                  vnic_type=vnic_types.NORMAL, profile=None,
@@ -69,7 +69,7 @@ class VIF(base.VersionedObject):
         if not devname:
             devname = ("nic" + id)[:_NIC_NAME_LEN]
         super(VIF, self).__init__(id=id, address=address, network=network,
-                                  type=type, details=details,
+                                  plugin=plugin, details=details,
                                   devname=devname,
                                   ovs_interfaceid=ovs_id,
                                   qbg_params=qbg_params, qbh_params=qbh_params,
