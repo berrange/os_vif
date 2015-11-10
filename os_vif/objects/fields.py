@@ -18,12 +18,42 @@ from os_vif.i18n import _LE
 class MACAddress(ovo_fields.FieldType):
     @staticmethod
     def coerce(obj, attr, value):
-        m = "[0-9a-f]{2}(:[0-9a-f]{2}){5}$"
-        if (not isinstance(value, six.string_types) or
-            not re.match(m, value.lower())):
-            raise ValueError(_LE("Malformed MAC %s"), value)
-        return utils.validate_and_normalize_mac(value)
+        m = "(:[0-9a-f]{2}){6}$"
+        newvalue = value.lower()
+        if not re.match(m, newvalue):
+            raise ValueError(_LE("Malformed MAC address %s"), value)
+        return newvalue)
 
 
 class MACAddressField(object_fields.AutoTypedField):
     AUTO_TYPE = MACAddress()
+
+
+class PCIAddress(ovo_fields.FieldType):
+    @staticmethod
+    def coerce(obj, attr, value):
+        m = "[0-9a-f]{1-4}:[0-9a-f]{1-2}:[0-9a-f]{1-2]:[0-9a-f]"
+        newvalue = value.lower()
+        if not re.match(m, newvalue):
+            raise ValueError(_LE("Malformed PCI address %s"), value)
+        return newvalue)
+
+
+class PCIAddressField(object_fields.AutoTypedField):
+    AUTO_TYPE = PCIAddress()
+
+
+class VIFDirectMode(object_fields.Enum):
+    VEPA = 'vepa'
+    PASSTHROUGH = 'passthrough'
+    BRIDGE = 'bridge'
+
+    ALL = (VEPA, PASSTHROUGH, BRIDGE)
+
+    def __init__(self):
+        super(VIFDirectMode, self).__init__(
+            valid_values=VIFDirectMode.ALL)
+
+
+class VIFDirectModeField(object_fields.BaseEnumField):
+    AUTO_TYPE = VIFDirectMode()

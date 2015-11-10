@@ -48,19 +48,12 @@ underlying network::
                                   should_provide_bridge=False)
 
     vif_uuid = uuid.uuid4()
-    details = {
-        'ovs_hybrid_plug': True,
-        'vhostuser_socket': '/path/to/socket',
-    }
-    vif = vif_objects.VIF(id=vif_uuid,
-                          address=None,
-                          network=network,
-                          plugin='vhostuser',
-                          details=details,
-                          profile=None,
-                          vnic_type=vnic_types.NORMAL,
-                          active=True,
-                          preserve_on_delete=False)
+    vif = vif_objects.VIFVHostUser(id=vif_uuid,
+                                   address=None,
+                                   network=network,
+                                   plugin='vhostuser',
+                                   path='/path/to/socket',
+                                   mode='0660')
 
     # Now do the actual plug operations to connect the VIF to
     # the backing network interface.

@@ -19,18 +19,6 @@ import six
 class PluginBase(object):
     """Base class for all VIF plugins."""
 
-    VIF_TYPE = 'unknown'
-    """
-    Should be overridden with a string representing the VIF type the plugin
-    supports.
-    """
-
-    SUPPORTED_VNIC_TYPES = (None, )
-    """
-    Should be overridden with one or more constants for VNIC types in
-    `os_vif.vnic_types`.
-    """
-
     def __init__(self, **config):
         """
         Sets up the plugin using supplied kwargs representing configuration
